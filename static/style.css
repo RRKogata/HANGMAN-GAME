@@ -1,0 +1,172 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Fira+Code:wght@500&display=swap');
+
+:root {
+  --bg-dark: #0f1720;
+  --bg-panel: #16212e;
+  --accent: #4fd1c5;
+  --accent-soft: #4fd1c530;
+  --danger: #ef5b6a;
+  --text-main: #e6edf3;
+  --text-dim: #8b98a5;
+  --border: #26333f;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  min-height: 100vh;
+  background: radial-gradient(circle at top, #1a2634 0%, var(--bg-dark) 65%);
+  font-family: 'Poppins', sans-serif;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.game-container {
+  width: 100%;
+  max-width: 640px;
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 28px 24px 32px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.45);
+}
+
+.title {
+  text-align: center;
+  font-size: 1.9rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  letter-spacing: 0.5px;
+}
+.title span { color: var(--accent); }
+
+.top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.category-selector { display: flex; align-items: center; gap: 8px; font-size: 0.9rem; color: var(--text-dim); }
+
+.difficulty-selector { display: flex; align-items: center; gap: 8px; font-size: 0.9rem; color: var(--text-dim); }
+
+select {
+  background: var(--bg-dark);
+  color: var(--text-main);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.btn-new-game {
+  background: var(--accent);
+  color: #06201d;
+  border: none;
+  padding: 9px 18px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.btn-new-game:hover { transform: translateY(-2px); box-shadow: 0 8px 18px var(--accent-soft); }
+
+.btn-hint {
+  background: #4a90e2;
+  color: #ffffff;
+  border: none;
+  padding: 9px 18px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+}
+.btn-hint:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(74, 144, 226, 0.3); }
+.btn-hint:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.main-area {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+
+.hangman-box { text-align: center; }
+
+#hangmanSvg .gallow { stroke: var(--text-dim); stroke-width: 4; stroke-linecap: round; }
+#hangmanSvg .part { stroke: var(--danger); stroke-width: 4; fill: none; stroke-linecap: round; transition: opacity 0.3s ease; }
+#hangmanSvg circle.part { fill: none; }
+.hidden { opacity: 0; }
+.visible { opacity: 1; }
+
+.wrong-count-text { margin-top: 6px; font-size: 0.85rem; color: var(--text-dim); }
+.wrong-count-text span { color: var(--danger); font-weight: 600; }
+
+.word-box { text-align: center; }
+
+.word-display {
+  font-family: 'Fira Code', monospace;
+  font-size: 2rem;
+  letter-spacing: 8px;
+  color: var(--accent);
+  min-height: 48px;
+  word-break: break-all;
+}
+
+.status-message {
+  margin-top: 14px;
+  font-weight: 600;
+  font-size: 1.05rem;
+  min-height: 24px;
+}
+.status-message.win { color: var(--accent); }
+.status-message.lose { color: var(--danger); }
+
+.hint-display {
+  margin-top: 12px;
+  padding: 10px 14px;
+  background: rgba(74, 144, 226, 0.1);
+  border-left: 3px solid #4a90e2;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  color: #4a90e2;
+  min-height: 24px;
+  text-align: left;
+}
+
+.keyboard {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(38px, 1fr));
+  gap: 8px;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.key-btn {
+  background: var(--bg-dark);
+  border: 1px solid var(--border);
+  color: var(--text-main);
+  padding: 10px 0;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+.key-btn:hover:not(:disabled) { background: var(--accent-soft); transform: translateY(-2px); }
+.key-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+.key-btn.correct { background: #1f4d3f; border-color: var(--accent); color: var(--accent); }
+.key-btn.wrong { background: #4d1f26; border-color: var(--danger); color: var(--danger); }
+
+@media (max-width: 480px) {
+  .word-display { font-size: 1.4rem; letter-spacing: 5px; }
+}

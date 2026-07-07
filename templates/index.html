@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hangman Game</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+  <div class="game-container">
+    <h1 class="title">🎯 Hangman <span>Game</span></h1>
+
+    <div class="top-bar">
+      <div class="category-selector">
+        <label for="category">Category:</label>
+        <select id="category">
+          {% for cat in categories %}
+          <option value="{{ cat }}">{{ cat|capitalize }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="difficulty-selector">
+        <label for="difficulty">Level:</label>
+        <select id="difficulty">
+          <option value="easy">Easy</option>
+          <option value="medium" selected>Medium</option>
+          <option value="hard">Hard</option>
+        </select>
+      </div>
+      <button id="hintBtn" class="btn-hint" title="Get a hint">💡 Hint</button>
+      <button id="newGameBtn" class="btn-new-game">🔁 New Game</button>
+    </div>
+
+    <div class="main-area">
+      <!-- Hangman drawing -->
+      <div class="hangman-box">
+        <svg id="hangmanSvg" viewBox="0 0 200 250" width="220" height="270">
+          <!-- Gallows (fixed) -->
+          <line x1="10" y1="240" x2="150" y2="240" class="gallow" />
+          <line x1="40" y1="240" x2="40" y2="20" class="gallow" />
+          <line x1="40" y1="20" x2="120" y2="20" class="gallow" />
+          <line x1="120" y1="20" x2="120" y2="45" class="gallow" />
+
+          <!-- Body parts, hidden by default, shown via JS as wrong guesses increase -->
+          <circle id="part-head" cx="120" cy="65" r="20" class="part hidden" />
+          <line id="part-body" x1="120" y1="85" x2="120" y2="150" class="part hidden" />
+          <line id="part-arm-left" x1="120" y1="100" x2="95" y2="130" class="part hidden" />
+          <line id="part-arm-right" x1="120" y1="100" x2="145" y2="130" class="part hidden" />
+          <line id="part-leg-left" x1="120" y1="150" x2="100" y2="190" class="part hidden" />
+          <line id="part-leg-right" x1="120" y1="150" x2="140" y2="190" class="part hidden" />
+        </svg>
+        <p class="wrong-count-text">Wrong guesses: <span id="wrongCount">0</span> / <span id="maxWrong">6</span></p>
+      </div>
+
+      <!-- Word + status -->
+      <div class="word-box">
+        <div id="wordDisplay" class="word-display">_ _ _ _ _</div>
+        <div id="statusMessage" class="status-message"></div>
+        <div id="hintDisplay" class="hint-display"></div>
+      </div>
+    </div>
+
+    <!-- Keyboard -->
+    <div id="keyboard" class="keyboard"></div>
+  </div>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
